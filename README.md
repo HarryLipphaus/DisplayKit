@@ -1,5 +1,5 @@
 # OledLib
-This library was originaly ispired by Michael Köhlers SSD1306-Library, which is discussed her:
+This library was originaly inspired by Michael Köhlers SSD1306-Library, which is discussed her:
 
 https://www.mikrocontroller.net/topic/415651
 
