@@ -208,7 +208,6 @@ void lcd_init(uint8_t dispAttr)
 	lcd_command((void *)initSequence, sizeof(initSequence), TRUE);
 #endif
 
-	cursor.x = cursor.y = 0;
 	if (dispAttr)			// turn display on
 		lcd_on(TRUE);
 
