@@ -44,7 +44,7 @@
  *
  */
 #define OLED_LINES	6	// 4, 6 or 8 Lines- 6 Lines uses GRAPHICMODE
-				// any other value than 8 automaticaly enables graphic-Mode
+				// any value other than 8 automaticaly enables graphic-Mode
 
 /*
  * uncomment if you want to use graphics
