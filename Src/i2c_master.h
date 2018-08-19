@@ -7,7 +7,7 @@
 //
 
 #ifndef I2C_MASTER_H
-#define I2C_MASTER_Hs
+#define I2C_MASTER_H
 
 #ifndef __ARM_ARCH
 /* TODO: setup i2c/twi */

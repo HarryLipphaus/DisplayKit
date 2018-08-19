@@ -4,7 +4,7 @@
 //
 //  Created by Michael Köhler on 09.10.17.
 //
-//
+
 #ifndef __ARM_ARCH
 #include "oled_config.h"
 #include "i2c_master.h"

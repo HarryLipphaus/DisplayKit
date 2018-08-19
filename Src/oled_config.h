@@ -27,7 +27,7 @@
 // #define I2C_HIGHSPEED
 
 /*
- * iitial contrast
+ * initial contrast
  */
 #define OLED_CONTRAST	0x8f
 

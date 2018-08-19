@@ -3,7 +3,7 @@
  *
  *  Created on: 17.08.2018
  *      Author: Harry L.
- *  based on Code from Michael Köhler
+ *  based on code from Michael Köhler
  *  See lcd.c fo details.
  *	simple graphic-functions
  *

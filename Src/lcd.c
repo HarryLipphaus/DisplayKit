@@ -493,6 +493,9 @@ void lcd_set_contrast(uint8_t contrast)
 #endif
 }
 
+/*
+ * turn display on and off for energy-saving
+ */
 void lcd_on(uint8_t onoff)
 {
 #ifdef __ARM_ARCH

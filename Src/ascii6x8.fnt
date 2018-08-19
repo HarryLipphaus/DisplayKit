@@ -16,6 +16,7 @@ const fnt_map_t fnt_map[] PROGMEM =
 		{ 0, 0xff }			// end of table
 };
 
+// the font
 static const uint8_t oled_font6x8[][6] PROGMEM =
 {
 		{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }, // sp

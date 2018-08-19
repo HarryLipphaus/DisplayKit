@@ -13,32 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Diese Datei ist Teil von lcd library for ssd1306/sh1106 oled-display.
  *
- * lcd library for ssd1306/sh1106 oled-display ist Freie Software: Sie können es unter den Bedingungen
- * der GNU General Public License, wie von der Free Software Foundation,
- * Version 3 der Lizenz oder jeder späteren
- * veröffentlichten Version, weiterverbreiten und/oder modifizieren.
- *
- * lcd library for ssd1306/sh1106 oled-display wird in der Hoffnung, dass es nützlich sein wird, aber
- * OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
- * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Details.
- *
- * Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
- * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
- *
- *  lcd.h
- *
- *  Created by Michael Köhler on 22.12.16.
- *  Copyright 2016 Skie-Systems. All rights reserved.
- *
- *  lib for OLED-Display with ssd1306/sh1106-Controller
- *  first dev-version only for I2C-Connection
- *  at ATMega328P like Arduino Uno
- *
- *  at GRAPHICMODE lib needs SRAM for display
- *  DISPLAY-WIDTH * DISPLAY-HEIGHT + 2 bytes
  */
 
 #ifndef OLED_H
