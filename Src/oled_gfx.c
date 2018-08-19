@@ -23,22 +23,31 @@
 
 #ifdef GRAPHICMODE
 
+#define SetPixel(x,y) (displayBuffer.buf[(y) / 8][x] |= (1 << ((y) % 8)))
+#define ClearPixel(x,y) (displayBuffer.buf[(y) / 8][x] &= ~(1 << ((y) % 8)))
+#define InvertPixel(x,y) (displayBuffer.buf[(y) / 8][x] ^= (1 << ((y) % 8)))
+
+
 
 void
 lcd_drawPixel (uint8_t x, uint8_t y, uint8_t color)
 {
   if (x > OLED_WIDTH - 1 || y > (OLED_HEIGHT - 1))
     return; // out of Display
-  if (color == WHITE)
-    {
-      displayBuffer.buf[y / 8][x] |=
-	  (1 << (y % (OLED_HEIGHT / 8)));
-    }
-  else
-    {
-      displayBuffer.buf[y / 8][x] &=
-	  ~(1 << (y % (OLED_HEIGHT / 8)));
-    }
+  switch (color)
+  {
+    case BLACK:
+      ClearPixel(x,y);
+      break;
+
+    case WHITE:
+      SetPixel(x,y);
+      break;
+
+    case INVERT:
+      InvertPixel(x,y);
+      break;
+  }
 }
 
 void
@@ -101,46 +110,40 @@ lcd_fillRect (uint8_t px1, uint8_t py1, uint8_t px2, uint8_t py2, uint8_t color)
 }
 
 void
-lcd_drawCircle (uint8_t center_x, uint8_t center_y, uint8_t radius,
-		uint8_t color)
+lcd_drawEllipse (int8_t xm, int8_t ym, int8_t a, int8_t b, uint8_t c)
 {
-  if (((center_x + radius) > OLED_WIDTH - 1)
-      || ((center_y + radius) > OLED_HEIGHT - 1) || center_x < radius
-      || center_y < radius)
-    return;
-  int16_t f = 1 - radius;
-  int16_t ddF_x = 1;
-  int16_t ddF_y = -2 * radius;
-  int16_t x = 0;
-  int16_t y = radius;
+  int dx = 0, dy = b; /* im I. Quadranten von links oben nach rechts unten */
+  long a2 = a * a, b2 = b * b;
+  long err = b2 - (2 * b - 1) * a2, e2; /* Fehler im 1. Schritt */
 
-  lcd_drawPixel (center_x, center_y + radius, color);
-  lcd_drawPixel (center_x, center_y - radius, color);
-  lcd_drawPixel (center_x + radius, center_y, color);
-  lcd_drawPixel (center_x - radius, center_y, color);
-
-  while (x < y)
+  do
     {
-      if (f >= 0)
-	{
-	  y--;
-	  ddF_y += 2;
-	  f += ddF_y;
-	}
-      x++;
-      ddF_x += 2;
-      f += ddF_x;
+      lcd_drawPixel (xm + dx, ym + dy, c); /* I. Quadrant */
+      lcd_drawPixel (xm - dx, ym + dy, c); /* II. Quadrant */
+      lcd_drawPixel (xm - dx, ym - dy, c); /* III. Quadrant */
+      lcd_drawPixel (xm + dx, ym - dy, c); /* IV. Quadrant */
 
-      lcd_drawPixel (center_x + x, center_y + y, color);
-      lcd_drawPixel (center_x - x, center_y + y, color);
-      lcd_drawPixel (center_x + x, center_y - y, color);
-      lcd_drawPixel (center_x - x, center_y - y, color);
-      lcd_drawPixel (center_x + y, center_y + x, color);
-      lcd_drawPixel (center_x - y, center_y + x, color);
-      lcd_drawPixel (center_x + y, center_y - x, color);
-      lcd_drawPixel (center_x - y, center_y - x, color);
+      e2 = 2 * err;
+      if (e2 < (2 * dx + 1) * b2)
+	{
+	  dx++;
+	  err += (2 * dx + 1) * b2;
+	}
+      if (e2 > -(2 * dy - 1) * a2)
+	{
+	  dy--;
+	  err -= (2 * dy - 1) * a2;
+	}
+    }
+  while (dy >= 0);
+
+  while (dx++ < a)
+    { /* fehlerhafter Abbruch bei flachen Ellipsen (b=1) */
+      lcd_drawPixel (xm + dx, ym, c); /* -> Spitze der Ellipse vollenden */
+      lcd_drawPixel (xm - dx, ym, c);
     }
 }
+
 
 void
 lcd_fillCircle (uint8_t center_x, uint8_t center_y, uint8_t radius,

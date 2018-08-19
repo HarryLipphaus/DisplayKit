@@ -142,6 +142,7 @@
 
 #define WHITE		0x01
 #define BLACK		0x00
+#define INVERT		0x02
 
 #ifdef GRAPHICMODE
 
@@ -210,7 +211,10 @@ void lcd_drawPixel(uint8_t x, uint8_t y, uint8_t color);
 void lcd_drawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color);
 void lcd_drawRect(uint8_t px1, uint8_t py1, uint8_t px2, uint8_t py2, uint8_t color);
 void lcd_fillRect(uint8_t px1, uint8_t py1, uint8_t px2, uint8_t py2, uint8_t color);
-void lcd_drawCircle(uint8_t center_x, uint8_t center_y, uint8_t radius, uint8_t color);
+// void lcd_drawCircle(uint8_t center_x, uint8_t center_y, uint8_t radius, uint8_t color);
+void lcd_drawEllipse (int8_t xm, int8_t ym, int8_t a, int8_t b, uint8_t c);
+#define lcd_drawCircle(x,y,r,c) lcd_drawEllipse(x,y,r,r,c)
+
 void lcd_fillCircle(uint8_t center_x, uint8_t center_y, uint8_t radius, uint8_t color);
 void lcd_drawBitmap(uint8_t x, uint8_t y, const uint8_t picture[], uint8_t width, uint8_t height, uint8_t color);
 #endif
