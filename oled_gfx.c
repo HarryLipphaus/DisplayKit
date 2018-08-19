@@ -23,6 +23,7 @@
 
 #ifdef GRAPHICMODE
 
+
 void
 lcd_drawPixel (uint8_t x, uint8_t y, uint8_t color)
 {
