@@ -33,9 +33,9 @@
 
 /*
  * 128 pixel has enough room for 21 characters
- * for compatibility to the popular 20x4-displays te width is limited to 20 chars
- * the whole line ist cntered by adding 4 empty pixel on the left side
- * uncomment, if you realy want to user 21 caracters
+ * for compatibility to the popular 20x4-displays the width is limited to 20 chars
+ * the whole line ist centered by adding 4 empty pixel on both sides
+ * uncomment, if you realy want to use 21 caracters
  */
 //#define OLED_21COL
 
@@ -44,6 +44,7 @@
  *
  */
 #define OLED_LINES	6	// 4, 6 or 8 Lines- 6 Lines uses GRAPHICMODE
+				// any other value than 8 automaticaly enables graphic-Mode
 
 /*
  * uncomment if you want to use graphics
