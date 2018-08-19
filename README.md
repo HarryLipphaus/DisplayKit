@@ -1,5 +1,6 @@
 # OledLib
 This libary is for the popular OLED-displays with SSD1306-controller.
+
 It compiles on AVR (8bit) AND on STM32/HAL without ay changes.
 
 On AVR you can choose between pure text-mode with less than 2kB of Flash and 21 byte of RAM consumption and graphics-mode, which increases RAM consumption by 1026 byte.
