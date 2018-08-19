@@ -20,4 +20,4 @@ All configuration is done in oled_config.h
 
 Datasheet for SSD1306:
 
-https://cloud.it-livetalk.de/index.php/s/DemDZz5x9SA7Zrm
+https://cloud.it-livetalk.de/index.php/s/AFcVnulocRBnGUV
