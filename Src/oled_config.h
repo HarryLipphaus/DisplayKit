@@ -1,5 +1,5 @@
 /*
- * oled_defines.h
+ * oled_config.h
  *
  *  Created on: 16.08.2018
  *      Author: Harry L.
