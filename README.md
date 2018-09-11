@@ -1,5 +1,5 @@
 # OledLib
-![](images/6line-graphic.jpg){:height="320px" width="480px"}
+![](./images/6line-graphic.jpg =480x320)
 
 This library was originaly inspired by Michael Köhlers SSD1306-Library, which is discussed her:
 
