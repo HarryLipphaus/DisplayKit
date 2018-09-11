@@ -1,5 +1,5 @@
 # OledLib
-![Alt text](images/6line-graphic.jpg?raw=true = 540x480 "6-Line-Mode")
+![Alt text](images/6line-graphic.jpg?raw=true "6-Line-Mode")
 
 This library was originaly inspired by Michael Köhlers SSD1306-Library, which is discussed her:
 
