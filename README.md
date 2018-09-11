@@ -1,5 +1,4 @@
 # OledLib
-
 <img src="https://github.com/HarryLipphaus/OledLib/blob/master/images/6line-graphic.jpg" width="240" height="160">
 This library was originaly inspired by Michael Köhlers SSD1306-Library, which is discussed her:
 
