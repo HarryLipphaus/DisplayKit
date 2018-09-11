@@ -1,6 +1,6 @@
 # OledLib
-![](./images/6line-graphic.jpg {width=480px height=320px} )
 
+<img src="https://github.com/HarryLipphaus/OledLib/blob/master/images/6line-graphic.jpg" width="480" height="320">
 This library was originaly inspired by Michael Köhlers SSD1306-Library, which is discussed her:
 
 https://www.mikrocontroller.net/topic/415651
