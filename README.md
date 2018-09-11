@@ -1,5 +1,5 @@
 # OledLib
-![](images/6line-graphic.jpg =640x)
+![](images/6line-graphic.jpg)
 
 This library was originaly inspired by Michael Köhlers SSD1306-Library, which is discussed her:
 
