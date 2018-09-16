@@ -24,7 +24,7 @@
  * uncomment to increase I²C-speed from 100kHz to 400kHz
  * on STM32 this line has no effect
  */
-// #define I2C_HIGHSPEED
+#define I2C_HIGHSPEED
 
 /*
  * initial contrast
@@ -51,7 +51,7 @@
  * on AVR this increases RAM-consumption by 1026 byte
  * on STM32 graphic-mode is the default - this line has no effect
  */
-//#define GRAPHICMODE
+// #define GRAPHICMODE
 
 /*
  * choose used Display-Controller

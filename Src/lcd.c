@@ -85,9 +85,9 @@ static volatile uint8_t cmdPending;
  */
 static struct
 {
-	uint8_t cnt;
 	uint8_t prefix;
-	uint8_t cmd[2];
+	uint8_t cmd[8];
+	uint8_t cnt;
 } __attribute__((packed)) cmdBuf;
 #endif
 
@@ -118,10 +118,8 @@ const uint8_t initSequence[] PROGMEM =
 										// 00=Horizontal Addressing Mode;
 										// 01=Vertical Addressing Mode;
 										// 10=Page Addressing Mode (RESET); 11=Invalid
-		OLED_PAGESTART,					// Set Page Start Address for Page Addressing Mode, 0-7
-		OLED_SETLOWCOLUMN,				// --set low column address
-		OLED_SETHIGHCOLUMN,				// --set high column address
 		OLED_COLUMNADDR, 0, (OLED_WIDTH - 1),
+		OLED_PAGEADDR, 0, (OLED_VLINES - 1),
 
 // Fundamental Commands
 		OLED_SETCONTRAST, OLED_CONTRAST,// Set contrast control register
@@ -143,7 +141,10 @@ const uint8_t initSequence[] PROGMEM =
 		OLED_SETVCOMDETECT,	0x20,		// --set vcomh
 
 // Chargepump
-		OLED_CHARGEPUMP, 0x14			// Set DC-DC enable
+		OLED_CHARGEPUMP, 0x14,			// Set DC-DC enable
+		OLED_SETLOWCOLUMN,				// --set low column address
+		OLED_SETHIGHCOLUMN,				// --set high column address
+		OLED_PAGESTART					// Set Page Start Address for Page Addressing Mode, 0-7
 
 		};
 
@@ -195,6 +196,21 @@ lcd_init (uint8_t dispAttr, I2C_HandleTypeDef *hi2c)
 	// enshure that I2C is ready
 	while (HAL_I2C_GetState (oled_hi2c) != HAL_I2C_STATE_READY)
 	;
+	cmdBuf.prefix = 0x00;
+	    cmdBuf.cmd[0] = OLED_COLUMNADDR;
+	    cmdBuf.cmd[1] = 0;
+	    cmdBuf.cmd[2] = (OLED_WIDTH - 1);
+	    cmdBuf.cmd[3] = OLED_PAGEADDR;
+	    cmdBuf.cmd[4] = 0;
+	    cmdBuf.cmd[5] = 7;
+	    cmdBuf.cmd[6] = OLED_SETLOWCOLUMN;				// --set low column address
+	    cmdBuf.cmd[7] = OLED_SETHIGHCOLUMN;				// --set high column address
+	cmdBuf.cnt = 9;
+	cmdPending = TRUE;
+//	HAL_I2C_Master_Transmit (oled_hi2c, OLED_I2C_ADR,
+//			(uint8_t *) &cmdBuf.prefix, cmdBuf.cnt, 5);
+//	cmdBuf.prefix = OLED_CMD_PREFIX;
+
 	// send init-sequence
 	HAL_I2C_Master_Transmit_DMA (oled_hi2c, OLED_I2C_ADR,
 			(uint8_t *) &initSequence,
@@ -227,7 +243,7 @@ HAL_I2C_MasterTxCpltCallback (I2C_HandleTypeDef *hi2c)
 		if (cmdPending)	//inject command
 		{
 			HAL_I2C_Master_Transmit (oled_hi2c, OLED_I2C_ADR,
-					(uint8_t *) &cmdBuf.prefix, cmdBuf.cnt, 5);
+					(uint8_t *) &cmdBuf, cmdBuf.cnt, 5);
 			cmdPending = FALSE;
 		}
 #ifndef SH1106
@@ -370,6 +386,16 @@ void lcd_clrscr(void)
 
 	uint8_t tmpLine[OLED_WIDTH];
 	memset(tmpLine, 0, OLED_WIDTH);
+	uint8_t commandSequence[] =
+	{
+	OLED_PAGESTART,
+	OLED_COLUMNADDR, 0, (OLED_WIDTH - 1),
+	OLED_SETLOWCOLUMN ,			// lower nibble
+	OLED_SETHIGHCOLUMN,	// upper nibble
+	};
+	lcd_command(commandSequence, sizeof(commandSequence), FALSE);
+	for(int8_t i=0;i<OLED_VLINES;i++)
+		lcd_data(tmpLine, OLED_WIDTH, FALSE);
 
 #ifdef SH1106
 	/*      for (uint8_t j=0; j< OLED_WIDTH; j++)
